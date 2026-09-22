@@ -13,9 +13,10 @@ negócio ou escalar para um humano.
 
 Decisões já tomadas, tratadas como restrição desta spec (ver ADRs):
 
-- LLM de orquestração: Claude via tool-use, só para extração de dados e
-  classificação de intenção. A decisão de ação é sempre código determinístico
-  ([[0001-llm-orquestracao-tool-use]]).
+- LLM de orquestração via tool-use/function-calling, só para extração de
+  dados e classificação de intenção. A decisão de ação é sempre código
+  determinístico ([[0001-llm-orquestracao-tool-use]]). Provedor de acesso ao
+  LLM: OpenRouter ([[0007-provedor-llm-openrouter]]).
 - Canal: webhook HTTP simulando WhatsApp, sem integração real
   ([[0002-canal-webhook-http]]).
 
@@ -92,8 +93,10 @@ de virar código.
 - **RNF2** — Reprocessar a mesma mensagem (mesmo `message_id`, reenvio
   duplicado do webhook) não deve gerar efeitos colaterais duplicados
   (nova cotação disparada, resposta duplicada).
-- **RNF3** — Sem dependências novas além do necessário: cliente HTTP e SDK
-  Anthropic são as adições esperadas; persistência via `sqlite3` da stdlib.
+- **RNF3** — Sem dependências novas além do necessário: o cliente HTTP
+  (`httpx`, já usado para o `quote-service`) é a única via de acesso ao LLM,
+  contra a API REST compatível com OpenAI da OpenRouter
+  ([[0007-provedor-llm-openrouter]]); persistência via `sqlite3` da stdlib.
 - **RNF4** — Persistência local em arquivo, sem exigir infraestrutura
   externa (sem Redis/Postgres) — proporcional ao escopo de um desafio de 3
   dias rodado localmente via `docker-compose`.
