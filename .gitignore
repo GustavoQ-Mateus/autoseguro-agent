@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.uv/
+*.egg-info/
+
+# env / secrets (NUNCA commitar)
+.env
+.env.*
+*.key
+*.pem
+
+# OS / editores
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# ...mas os logs de IA são entregável — ver README (Transparência de uso de IA)
+!ai-logs/**

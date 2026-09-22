@@ -1,0 +1,12 @@
+services:
+  quote-api:
+    build: ./quote-service
+    ports:
+      - "8000:8000"
+    environment:
+      # instabilidade simulada (de proposito) -- ajuste se quiser durante o dev
+      QUOTE_FAILURE_RATE: "0.20"
+      QUOTE_SLOW_RATE: "0.10"
+      QUOTE_SLOW_SECONDS: "8"
+      # QUOTE_SEED: "42"   # descomente p/ falhas reproduziveis
+    restart: unless-stopped

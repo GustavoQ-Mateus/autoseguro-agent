@@ -1,0 +1,56 @@
+{
+  "_comment": "Tabela de planos e regras de cotacao de seguro auto. Leia com atencao: ha regras que so se aplicam em casos especificos.",
+  "moeda": "BRL",
+  "planos": [
+    {
+      "id": "essencial",
+      "nome": "Essencial",
+      "base_mensal": 119.90,
+      "franquia": 4500,
+      "coberturas": ["colisao", "roubo", "furto"]
+    },
+    {
+      "id": "completo",
+      "nome": "Completo",
+      "base_mensal": 209.90,
+      "franquia": 3000,
+      "coberturas": ["colisao", "roubo", "furto", "terceiros", "vidros"]
+    },
+    {
+      "id": "premium",
+      "nome": "Premium",
+      "base_mensal": 339.90,
+      "franquia": 1500,
+      "coberturas": ["colisao", "roubo", "furto", "terceiros", "vidros", "carro_reserva", "assistencia_24h"]
+    }
+  ],
+  "regras": {
+    "faixa_etaria": [
+      { "idade_min": 18, "idade_max": 24, "multiplicador": 1.60 },
+      { "idade_min": 25, "idade_max": 29, "multiplicador": 1.25 },
+      { "idade_min": 30, "idade_max": 59, "multiplicador": 1.00 },
+      { "idade_min": 60, "idade_max": 75, "multiplicador": 1.40 },
+      { "idade_min": 76, "idade_max": 200, "recusar": true, "motivo": "Idade acima do limite de aceitacao (75 anos)." }
+    ],
+    "idade_veiculo": [
+      { "anos_min": 0, "anos_max": 5, "multiplicador": 1.00 },
+      { "anos_min": 6, "anos_max": 10, "multiplicador": 1.15 },
+      { "anos_min": 11, "anos_max": 20, "multiplicador": 1.45 },
+      { "anos_min": 21, "anos_max": 200, "recusar": true, "motivo": "Veiculo com mais de 20 anos nao e aceito." }
+    ],
+    "regiao_cep": {
+      "_obs": "Prefixos de CEP (2 primeiros digitos) considerados de alto risco recebem agravo.",
+      "prefixos_alto_risco": ["07", "08", "21", "26", "59"],
+      "multiplicador": 1.30
+    },
+    "carencia": {
+      "_obs": "Coberturas de roubo e furto so passam a valer apos a carencia, contada da data de inicio da vigencia.",
+      "coberturas_com_carencia": ["roubo", "furto"],
+      "dias": 30
+    },
+    "entrada_meio_mes": {
+      "_obs": "Quando a vigencia comeca no meio do mes, o PRIMEIRO pagamento e proporcional (pro-rata) aos dias restantes do mes. Os meses seguintes sao integrais.",
+      "regra": "pro_rata_primeiro_mes"
+    }
+  }
+}
