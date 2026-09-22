@@ -45,6 +45,11 @@ curl -X POST localhost:8001/webhook/message -H 'content-type: application/json' 
 curl localhost:8001/conversations/conv_demo
 ```
 
+## Log de execução completa
+
+Conversa real, ponta a ponta, com o agente rodando via Docker Compose e a
+OpenRouter, terminando com uma cotação entregue ao lead: [docs/demo/conversa-completa.md](docs/demo/conversa-completa.md).
+
 ## Decisões tomadas
 
 O projeto é spec-driven: a fonte da verdade é `docs/specs/spec-v1.0.0.md`, com
