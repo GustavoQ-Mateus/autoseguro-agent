@@ -13,7 +13,7 @@ Submissão para o desafio técnico de FDE/AI Engineer (Namastex/Khal).
 Via Docker Compose (`quote-service` na porta 8000, agente na porta 8001):
 
 ```bash
-export ANTHROPIC_API_KEY=sk-ant-...
+export OPENROUTER_API_KEY=sk-or-...
 docker compose up --build
 ```
 
@@ -21,7 +21,7 @@ Sem Docker:
 
 ```bash
 cd quote-service && python -m uvicorn app.main:app --port 8000 &
-cd agent && ANTHROPIC_API_KEY=sk-ant-... QUOTE_SERVICE_URL=http://localhost:8000 \
+cd agent && OPENROUTER_API_KEY=sk-or-... QUOTE_SERVICE_URL=http://localhost:8000 \
   python -m uvicorn app.main:app --port 8001
 ```
 
@@ -52,7 +52,9 @@ cada decisão de arquitetura registrada em `docs/adr/`. Resumo:
 
 - LLM (Claude, via tool-use) só extrai dados e classifica intenção; a decisão
   de ação é sempre a máquina de estados determinística em `agent/app/state_machine.py`
-  ([ADR-0001](docs/adr/0001-llm-orquestracao-tool-use.md)).
+  ([ADR-0001](docs/adr/0001-llm-orquestracao-tool-use.md)). O transporte hoje é via
+  OpenRouter, não a API direta da Anthropic
+  ([ADR-0007](docs/adr/0007-provedor-llm-openrouter.md)).
 - Canal é um webhook HTTP simulando WhatsApp, sem integração real
   ([ADR-0002](docs/adr/0002-canal-webhook-http.md)).
 - `/quote`: timeout de 5s por tentativa, até 3 tentativas só para falha técnica,
