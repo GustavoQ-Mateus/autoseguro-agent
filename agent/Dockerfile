@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 WORKDIR /srv
 COPY pyproject.toml ./
-RUN pip install --no-cache-dir fastapi "uvicorn[standard]" "pydantic>=2.6" "httpx>=0.27" "anthropic>=0.40"
+RUN pip install --no-cache-dir fastapi "uvicorn[standard]" "pydantic>=2.6" "httpx>=0.27"
 
 COPY app ./app
 COPY data ./data

@@ -17,8 +17,8 @@ services:
       - "8001:8001"
     environment:
       QUOTE_SERVICE_URL: "http://quote-api:8000"
-      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY}"
-      ANTHROPIC_MODEL: "${ANTHROPIC_MODEL:-claude-haiku-4-5-20251001}"
+      OPENROUTER_API_KEY: "${OPENROUTER_API_KEY}"
+      OPENROUTER_MODEL: "${OPENROUTER_MODEL:-anthropic/claude-sonnet-5}"
       AGENT_DB_PATH: "/srv/data/agent.db"
     volumes:
       - ./agent/data:/srv/data
