@@ -10,3 +10,18 @@ services:
       QUOTE_SLOW_SECONDS: "8"
       # QUOTE_SEED: "42"   # descomente p/ falhas reproduziveis
     restart: unless-stopped
+
+  agent:
+    build: ./agent
+    ports:
+      - "8001:8001"
+    environment:
+      QUOTE_SERVICE_URL: "http://quote-api:8000"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY}"
+      ANTHROPIC_MODEL: "${ANTHROPIC_MODEL:-claude-haiku-4-5-20251001}"
+      AGENT_DB_PATH: "/srv/data/agent.db"
+    volumes:
+      - ./agent/data:/srv/data
+    depends_on:
+      - quote-api
+    restart: unless-stopped

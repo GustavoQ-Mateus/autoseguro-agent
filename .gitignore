@@ -12,6 +12,9 @@ venv/
 *.key
 *.pem
 
+# artefato de runtime do agente (ADR-0005, nunca commitado)
+agent/data/*.db
+
 # OS / editores
 .DS_Store
 .idea/
