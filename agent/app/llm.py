@@ -1,8 +1,16 @@
 from __future__ import annotations
 import json
+from dataclasses import dataclass, field
 import httpx
 from . import config
 from .models import INTENCOES
+
+
+@dataclass
+class Extraction:
+    slots: dict = field(default_factory=dict)
+    intent: str | None = None
+    llm_failed: bool = False
 
 _TOOL_NAME = "extrair_dados_cotacao"
 
@@ -42,7 +50,7 @@ def _build_prompt(history: list[dict], current_message: str) -> str:
     return "Historico da conversa:\n" + "\n".join(linhas)
 
 
-def extract_and_classify(history: list[dict], current_message: str) -> tuple[dict, str | None]:
+def extract_and_classify(history: list[dict], current_message: str) -> Extraction:
     try:
         resp = httpx.post(
             _OPENROUTER_URL,
@@ -65,8 +73,8 @@ def extract_and_classify(history: list[dict], current_message: str) -> tuple[dic
         tool_calls = resp.json()["choices"][0]["message"]["tool_calls"]
         data = json.loads(tool_calls[0]["function"]["arguments"])
     except Exception:
-        return {}, None
+        return Extraction(llm_failed=True)
 
     intencao = data.pop("intencao", None)
     slots = {k: v for k, v in data.items() if v is not None}
-    return slots, intencao
+    return Extraction(slots=slots, intent=intencao)
