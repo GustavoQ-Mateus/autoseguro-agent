@@ -2,7 +2,7 @@ from __future__ import annotations
 
 _CAMPO_LABEL = {
     "idade": "sua idade",
-    "veiculo_ano": "o ano do seu veiculo",
+    "veiculo_ano": "o ano do seu veículo",
 }
 
 ESCALONADA = (
@@ -10,24 +10,24 @@ ESCALONADA = (
 )
 
 INSTABILIDADE_ESCALONADA = (
-    "Nosso sistema de cotacao esta instavel no momento e nao consegui gerar sua cotacao. "
+    "Nosso sistema de cotação está instável no momento e não consegui gerar sua cotação. "
     "Vou te transferir para um consultor humano para continuar seu atendimento."
 )
 
 REPROCESSAR = (
-    "Nao consegui processar sua ultima mensagem agora. Pode reenviar essa informacao, por favor?"
+    "Não consegui processar sua última mensagem agora. Pode reenviar essa informação, por favor?"
 )
 
 
 def ask_missing(missing: list[str]) -> str:
     campos = " e ".join(_CAMPO_LABEL.get(f, f) for f in missing)
-    return f"Pra te passar uma cotacao, preciso que me informe {campos}."
+    return f"Pra te passar uma cotação, preciso que me informe {campos}."
 
 
 def quote_success(data: dict) -> str:
     coberturas = ", ".join(data.get("coberturas", []))
     linhas = [
-        f"Sua cotacao no plano {data['plano_nome']} ficou em R$ {data['premio_mensal']:.2f}/mes.",
+        f"Sua cotação no plano {data['plano_nome']} ficou em R$ {data['premio_mensal']:.2f}/mês.",
         f"Franquia: R$ {data['franquia']}. Coberturas: {coberturas}.",
     ]
     pro_rata = data.get("primeiro_pagamento_pro_rata")
@@ -37,5 +37,5 @@ def quote_success(data: dict) -> str:
 
 
 def quote_refusal(motivo: str | None) -> str:
-    base = motivo or "Nao consegui aprovar essa cotacao com os dados informados."
+    base = motivo or "Não consegui aprovar essa cotação com os dados informados."
     return f"{base} Posso te transferir para um consultor humano revisar seu caso, se quiser."
