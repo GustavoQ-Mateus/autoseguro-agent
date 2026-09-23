@@ -284,3 +284,4 @@
 {"parentUuid":"6b9f5842-59ad-4c87-89ac-ecf06c7a3122","isSidechain":false,"type":"system","subtype":"turn_duration","durationMs":25154,"messageCount":212,"timestamp":"2026-09-22T22:04:25.921Z","uuid":"36534f98-7848-4cc0-8016-1fe285d1a97f","isMeta":false,"userType":"external","entrypoint":"cli","cwd":"G:\\Dev\\Projetos\\autoseguro-agent","sessionId":"57097b03-b09b-45dd-83dc-0f424b4ac8d3","version":"2.1.207","gitBranch":"main"}
 {"type":"queue-operation","operation":"enqueue","timestamp":"2026-09-22T22:24:28.088Z","sessionId":"57097b03-b09b-45dd-83dc-0f424b4ac8d3","content":"/clear"}
 {"type":"queue-operation","operation":"dequeue","timestamp":"2026-09-22T22:24:28.095Z","sessionId":"57097b03-b09b-45dd-83dc-0f424b4ac8d3"}
+{"type":"bridge-session","sessionId":"57097b03-b09b-45dd-83dc-0f424b4ac8d3","bridgeSessionId":"cse_01Qn78nBReeeXJZubw5JAttj","lastSequenceNum":179}
