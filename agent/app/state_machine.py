@@ -21,11 +21,23 @@ class PreDecision:
     action: str
     slots: dict
     stagnation_count: int
+    llm_failure_count: int = 0
     motivo: str | None = None
     missing: list[str] = field(default_factory=list)
 
 
-def pre_quote_decision(state: ConversationState, intent: str | None, slots_delta: dict) -> PreDecision:
+def pre_quote_decision(state: ConversationState, intent: str | None, slots_delta: dict,
+                       llm_failed: bool = False) -> PreDecision:
+    if llm_failed:
+        llm_failure_count = state.llm_failure_count + 1
+        if llm_failure_count >= config.LLM_FAILURE_LIMIT:
+            return PreDecision(action="escalar", slots=state.slots,
+                               stagnation_count=state.stagnation_count,
+                               llm_failure_count=llm_failure_count, motivo="falha_tecnica_llm")
+        return PreDecision(action="reprocessar", slots=state.slots,
+                           stagnation_count=state.stagnation_count,
+                           llm_failure_count=llm_failure_count)
+
     new_slots = merge_slots(state.slots, slots_delta)
 
     if intent == "pedindo_humano":

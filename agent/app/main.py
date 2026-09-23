@@ -46,17 +46,22 @@ def webhook_message(msg: WebhookMessageIn) -> WebhookMessageOut:
         return _finish(message_id, replies.ESCALONADA)
 
     history = storage.recent_messages(msg.conversation_id, config.HISTORY_LIMIT)
-    slots_delta, intent = llm.extract_and_classify(history, masked_body)
+    extraction = llm.extract_and_classify(history, masked_body)
 
-    decision = state_machine.pre_quote_decision(state, intent, slots_delta)
+    decision = state_machine.pre_quote_decision(
+        state, extraction.intent, extraction.slots, extraction.llm_failed)
 
     if decision.action == "escalar":
         storage.log_escalation(msg.conversation_id, decision.motivo)
-        storage.save_state(ConversationState(msg.conversation_id, decision.slots, decision.stagnation_count, "escalonada"))
+        storage.save_state(ConversationState(msg.conversation_id, decision.slots, decision.stagnation_count, "escalonada", decision.llm_failure_count))
         return _finish(message_id, replies.ESCALONADA)
 
+    if decision.action == "reprocessar":
+        storage.save_state(ConversationState(msg.conversation_id, decision.slots, decision.stagnation_count, "em_andamento", decision.llm_failure_count))
+        return _finish(message_id, replies.REPROCESSAR)
+
     if decision.action == "pedir_dado":
-        storage.save_state(ConversationState(msg.conversation_id, decision.slots, decision.stagnation_count, "em_andamento"))
+        storage.save_state(ConversationState(msg.conversation_id, decision.slots, decision.stagnation_count, "em_andamento", decision.llm_failure_count))
         return _finish(message_id, replies.ask_missing(decision.missing))
 
     payload = state_machine.build_quote_payload(decision.slots)
@@ -67,15 +72,15 @@ def webhook_message(msg: WebhookMessageIn) -> WebhookMessageOut:
     post = state_machine.post_quote_decision(result)
 
     if post.action == "responder_cotacao":
-        storage.save_state(ConversationState(msg.conversation_id, decision.slots, 0, "cotado"))
+        storage.save_state(ConversationState(msg.conversation_id, decision.slots, 0, "cotado", decision.llm_failure_count))
         return _finish(message_id, replies.quote_success(result.data))
 
     if post.action == "responder_recusa":
-        storage.save_state(ConversationState(msg.conversation_id, decision.slots, 0, "recusado"))
+        storage.save_state(ConversationState(msg.conversation_id, decision.slots, 0, "recusado", decision.llm_failure_count))
         return _finish(message_id, replies.quote_refusal(result.motivo))
 
     storage.log_escalation(msg.conversation_id, post.motivo)
-    storage.save_state(ConversationState(msg.conversation_id, decision.slots, 0, "escalonada"))
+    storage.save_state(ConversationState(msg.conversation_id, decision.slots, 0, "escalonada", decision.llm_failure_count))
     return _finish(message_id, replies.INSTABILIDADE_ESCALONADA)
 
 

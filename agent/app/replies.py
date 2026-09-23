@@ -14,6 +14,10 @@ INSTABILIDADE_ESCALONADA = (
     "Vou te transferir para um consultor humano para continuar seu atendimento."
 )
 
+REPROCESSAR = (
+    "Nao consegui processar sua ultima mensagem agora. Pode reenviar essa informacao, por favor?"
+)
+
 
 def ask_missing(missing: list[str]) -> str:
     campos = " e ".join(_CAMPO_LABEL.get(f, f) for f in missing)
