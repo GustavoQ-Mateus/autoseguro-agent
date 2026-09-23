@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS conversation_state (
     conversation_id TEXT PRIMARY KEY,
     slots TEXT NOT NULL,
     stagnation_count INTEGER NOT NULL DEFAULT 0,
+    llm_failure_count INTEGER NOT NULL DEFAULT 0,
     status TEXT NOT NULL DEFAULT 'em_andamento',
     updated_at TEXT NOT NULL
 );

@@ -19,6 +19,7 @@ class ConversationState:
     slots: dict = field(default_factory=dict)
     stagnation_count: int = 0
     status: str = "em_andamento"
+    llm_failure_count: int = 0
 
 
 @dataclass

@@ -67,7 +67,7 @@ def recent_messages(conversation_id: str, limit: int) -> list[dict]:
 def load_state(conversation_id: str) -> ConversationState:
     with _connect() as conn:
         row = conn.execute(
-            "SELECT slots, stagnation_count, status FROM conversation_state WHERE conversation_id = ?",
+            "SELECT slots, stagnation_count, status, llm_failure_count FROM conversation_state WHERE conversation_id = ?",
             (conversation_id,),
         ).fetchone()
     if row is None:
@@ -77,18 +77,21 @@ def load_state(conversation_id: str) -> ConversationState:
         slots=json.loads(row[0]),
         stagnation_count=row[1],
         status=row[2],
+        llm_failure_count=row[3],
     )
 
 
 def save_state(state: ConversationState) -> None:
     with _connect() as conn:
         conn.execute(
-            "INSERT INTO conversation_state (conversation_id, slots, stagnation_count, status, updated_at) "
-            "VALUES (?, ?, ?, ?, ?) "
+            "INSERT INTO conversation_state (conversation_id, slots, stagnation_count, llm_failure_count, status, updated_at) "
+            "VALUES (?, ?, ?, ?, ?, ?) "
             "ON CONFLICT(conversation_id) DO UPDATE SET "
             "slots = excluded.slots, stagnation_count = excluded.stagnation_count, "
+            "llm_failure_count = excluded.llm_failure_count, "
             "status = excluded.status, updated_at = excluded.updated_at",
-            (state.conversation_id, json.dumps(state.slots), state.stagnation_count, state.status, _now()),
+            (state.conversation_id, json.dumps(state.slots), state.stagnation_count,
+             state.llm_failure_count, state.status, _now()),
         )
 
 
@@ -114,7 +117,7 @@ def log_escalation(conversation_id: str, motivo: str) -> None:
 def get_conversation_full(conversation_id: str) -> dict | None:
     with _connect() as conn:
         state_row = conn.execute(
-            "SELECT slots, stagnation_count, status FROM conversation_state WHERE conversation_id = ?",
+            "SELECT slots, stagnation_count, status, llm_failure_count FROM conversation_state WHERE conversation_id = ?",
             (conversation_id,),
         ).fetchone()
         if state_row is None:
@@ -139,6 +142,7 @@ def get_conversation_full(conversation_id: str) -> dict | None:
         "status": state_row[2],
         "slots": json.loads(state_row[0]),
         "stagnation_count": state_row[1],
+        "llm_failure_count": state_row[3],
         "messages": [
             {
                 "message_id": m[0], "sender_role": m[1], "message_type": m[2],
