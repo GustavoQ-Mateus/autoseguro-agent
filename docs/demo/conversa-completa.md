@@ -23,7 +23,7 @@ Response:
 ```json
 {
   "message_id": "msg_871a80b9375c3a0f1c2d61aeb099b391",
-  "reply": "Pra te passar uma cotacao, preciso que me informe sua idade e o ano do seu veiculo."
+  "reply": "Pra te passar uma cotação, preciso que me informe sua idade e o ano do seu veículo."
 }
 ```
 
@@ -46,7 +46,7 @@ Response:
 ```json
 {
   "message_id": "msg_ff08aa9876396b0b9eee18cf040431a2",
-  "reply": "Sua cotacao no plano Essencial ficou em R$ 137.88/mes. Franquia: R$ 4500. Coberturas: colisao, roubo, furto."
+  "reply": "Sua cotação no plano Essencial ficou em R$ 137.88/mês. Franquia: R$ 4500. Coberturas: colisao, roubo, furto."
 }
 ```
 
@@ -75,7 +75,7 @@ Response:
       "sender_role": "lead",
       "message_type": "text",
       "body": "Oi, tudo bem? Queria fazer uma cotacao de seguro pro meu carro",
-      "response_body": "Pra te passar uma cotacao, preciso que me informe sua idade e o ano do seu veiculo.",
+      "response_body": "Pra te passar uma cotação, preciso que me informe sua idade e o ano do seu veículo.",
       "timestamp": "2026-09-22T10:00:00",
       "status": "processada"
     },
@@ -84,7 +84,7 @@ Response:
       "sender_role": "lead",
       "message_type": "text",
       "body": "Claro! Tenho 32 anos e meu carro e um Onix 2020",
-      "response_body": "Sua cotacao no plano Essencial ficou em R$ 137.88/mes. Franquia: R$ 4500. Coberturas: colisao, roubo, furto.",
+      "response_body": "Sua cotação no plano Essencial ficou em R$ 137.88/mês. Franquia: R$ 4500. Coberturas: colisao, roubo, furto.",
       "timestamp": "2026-09-22T10:01:00",
       "status": "processada"
     }

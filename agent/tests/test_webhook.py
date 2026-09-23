@@ -28,7 +28,7 @@ def test_pede_dado_faltante_quando_incompleto(client, monkeypatch):
                          lambda h, m: Extraction(slots={"idade": 35}, intent="fornecendo_dado"))
     resp = client.post("/webhook/message", json=_msg("conv_x", "tenho 35 anos"))
     assert resp.status_code == 200
-    assert "veiculo" in resp.json()["reply"].lower()
+    assert "veículo" in resp.json()["reply"].lower()
 
 
 def test_fluxo_completo_ate_cotacao(client, monkeypatch):
@@ -58,7 +58,7 @@ def test_falha_tecnica_persistente_escala(client, monkeypatch):
     ))
 
     resp = client.post("/webhook/message", json=_msg("conv_z", "tenho 35 anos, meu carro e um onix 2019"))
-    assert "instavel" in resp.json()["reply"].lower()
+    assert "instável" in resp.json()["reply"].lower()
 
     view = client.get("/conversations/conv_z").json()
     assert view["status"] == "escalonada"
