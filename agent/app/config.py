@@ -8,6 +8,7 @@ QUOTE_MAX_ATTEMPTS = int(os.getenv("QUOTE_MAX_ATTEMPTS", "3"))
 QUOTE_BACKOFF_SECONDS = float(os.getenv("QUOTE_BACKOFF_SECONDS", "1"))
 
 STAGNATION_LIMIT = int(os.getenv("STAGNATION_LIMIT", "3"))
+LLM_FAILURE_LIMIT = int(os.getenv("LLM_FAILURE_LIMIT", "3"))
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "anthropic/claude-sonnet-5")
