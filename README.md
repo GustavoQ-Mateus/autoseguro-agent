@@ -52,11 +52,11 @@ OpenRouter, terminando com uma cotação entregue ao lead: [docs/demo/conversa-c
 
 ## Decisões tomadas
 
-O projeto é spec-driven: a fonte da verdade é `docs/specs/spec-v1.0.0.md`, com
+O projeto é spec-driven: a fonte da verdade é `docs/specs/spec-v1.1.0.md`, com
 cada decisão de arquitetura registrada em `docs/adr/`. Resumo:
 
-- LLM (Claude, via tool-use) só extrai dados e classifica intenção; a decisão
-  de ação é sempre a máquina de estados determinística em `agent/app/state_machine.py`
+- LLM só extrai dados e classifica intenção; a decisão de ação é sempre a
+  máquina de estados determinística em `agent/app/state_machine.py`
   ([ADR-0001](docs/adr/0001-llm-orquestracao-tool-use.md)). O transporte hoje é via
   OpenRouter, não a API direta da Anthropic
   ([ADR-0007](docs/adr/0007-provedor-llm-openrouter.md)).
@@ -64,9 +64,12 @@ cada decisão de arquitetura registrada em `docs/adr/`. Resumo:
   ([ADR-0002](docs/adr/0002-canal-webhook-http.md)).
 - `/quote`: timeout de 5s por tentativa, até 3 tentativas só para falha técnica,
   nunca para recusa de negócio ([ADR-0003](docs/adr/0003-resiliencia-quote-service.md)).
-- Escalonamento para humano por três critérios auditáveis: pedido explícito,
-  falha técnica persistente do `/quote`, ou estagnação após 3 mensagens sem
-  extrair um dado obrigatório ([ADR-0004](docs/adr/0004-criterio-escalonamento-humano.md)).
+- Escalonamento para humano por quatro critérios auditáveis: pedido explícito,
+  falha técnica persistente do `/quote`, estagnação após 3 mensagens sem
+  extrair um dado obrigatório, ou falha técnica persistente do próprio LLM
+  ([ADR-0004](docs/adr/0004-criterio-escalonamento-humano.md)). Falha de LLM é
+  contada separada da estagnação do lead, para o motivo registrado não mentir
+  sobre a causa real ([ADR-0008](docs/adr/0008-falha-tecnica-llm-categoria-propria.md)).
 - Estado e rastro em SQLite local, versionando só o schema
   ([ADR-0005](docs/adr/0005-rastreabilidade-sqlite.md)).
 - PII (CPF, e-mail, telefone, placa) nunca é solicitada e é mascarada antes de
