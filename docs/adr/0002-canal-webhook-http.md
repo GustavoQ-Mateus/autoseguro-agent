@@ -6,7 +6,7 @@ Status: aceita.
 
 O cenário do projeto é atendimento por WhatsApp, mas já está decidido que não
 haverá integração real com nenhuma API de mensageria (Twilio, Meta Business
-API) — isso não é o que o projeto avalia.
+API) nesta versão. O foco é o comportamento do agente.
 
 ## Decisão
 
@@ -19,7 +19,7 @@ chamar nenhuma API externa de mensageria.
 ## Alternativas consideradas
 
 - **Integração real com Twilio/Meta WhatsApp Business API**: rejeitada,
-  exigiria conta e credenciais externas e não é avaliada pelo projeto.
+  exigiria conta e credenciais externas, fora do escopo desta versão.
 - **CLI/REPL interativo**: rejeitada. Um webhook HTTP é mais fiel ao formato
   real de integração de mensageria e permite reproduzir facilmente, via
   `curl` ou script, o "log de uma execução completa" exigido na entrega.

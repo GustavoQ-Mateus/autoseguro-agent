@@ -1,7 +1,7 @@
 [project]
 name = "autoseguro-agent"
 version = "1.0.0"
-description = "Agente de atendimento e cotacao AutoSeguro "
+description = "Agente de atendimento e cotacao AutoSeguro"
 requires-python = ">=3.10"
 dependencies = [
     "fastapi>=0.110",

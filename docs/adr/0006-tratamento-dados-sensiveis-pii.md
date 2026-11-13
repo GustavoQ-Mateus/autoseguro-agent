@@ -5,7 +5,7 @@ Status: aceita.
 ## Contexto
 
 `dataset/conversations.parquet` tem CPF, e-mail, telefone e placa embutidos
-em texto livre (sintéticos, mas tratados como sensíveis por exigência do
+em texto livre (sintéticos, mas tratados como sensíveis por decisão do
 projeto). As mensagens reais recebidas pelo webhook em runtime podem conter
 os mesmos tipos de dado, espontaneamente digitados pelo lead. O repositório
 é público — nenhum desses dados pode chegar em texto puro a logs, exemplos
@@ -29,7 +29,7 @@ ou artefatos commitados.
   montar exemplos, qualquer trecho salvo em arquivo versionado passa pela
   mesma função de mascaramento antes de tocar disco. Nenhum script de
   exploração deve escrever amostras cruas do dataset em arquivo commitado.
-- `ai-logs/` e qualquer log de execução incluído no repositório são
+- Qualquer log de execução incluído no repositório são
   revisados antes do commit final para garantir ausência de PII em texto
   puro — responsabilidade humana de quem commita, não só da função de
   mascaramento.

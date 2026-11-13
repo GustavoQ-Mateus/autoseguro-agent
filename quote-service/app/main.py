@@ -1,5 +1,5 @@
 """
-Servico de cotacao de seguro auto (mock) para o projeto.
+Servico de cotacao de seguro auto (mock).
 
 POST /quote  -> calcula uma cotacao a partir dos dados do lead/veiculo.
 GET  /health -> health check (sempre estavel).

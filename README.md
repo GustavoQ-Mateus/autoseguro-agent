@@ -1,12 +1,12 @@
 # autoseguro-agent
 
-Submissão para o projeto técnico de  ().
+Agente de IA que atende leads de seguro auto num canal de mensagens no formato do WhatsApp. O LLM extrai os dados do lead e classifica a intenção, uma máquina de estados determinística decide a próxima ação, o agente chama o serviço de cotação com timeout e retentativa e passa a conversa para um humano por critérios auditáveis. CPF, e-mail, telefone e placa são mascarados antes de qualquer log, persistência ou chamada ao modelo.
 
-- Briefing original do projeto: [docs/projeto/README_ORIGINAL.md](docs/projeto/README_ORIGINAL.md)
+O serviço de cotação é um mock com planos fixos e o dataset de conversas é sintético, gerado por script.
+
 - Regras do projeto e fluxo spec-driven: [CLAUDE.md](CLAUDE.md)
 - Specs por versão: `docs/specs/`
 - Decisões de arquitetura: `docs/adr/`
-- Conversas com IA usadas na construção: `ai-logs/`
 
 ## Como rodar
 

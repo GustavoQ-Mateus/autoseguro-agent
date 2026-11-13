@@ -3,7 +3,7 @@
 # dependencies = ["pandas", "pyarrow"]
 # ///
 """
-Gera o dataset SINTETICO de conversas (lead <-> vendedor) para o projeto.
+Gera o dataset SINTETICO de conversas (lead <-> vendedor).
 
 Tudo aqui e ficticio e gerado proceduralmente: nenhum dado real de cliente.
 Os dados pessoais (CPF, email, telefone, placa, CEP) sao plausiveis no formato,

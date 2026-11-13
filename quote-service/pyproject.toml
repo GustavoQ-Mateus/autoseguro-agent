@@ -1,7 +1,7 @@
 [project]
 name = "autoseguro-quote-api"
 version = "1.0.0"
-description = "Mock do servico de cotacao de seguro auto "
+description = "Mock do servico de cotacao de seguro auto"
 requires-python = ">=3.10"
 dependencies = [
     "fastapi>=0.110",

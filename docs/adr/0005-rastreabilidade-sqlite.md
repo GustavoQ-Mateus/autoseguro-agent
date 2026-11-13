@@ -34,7 +34,7 @@ O arquivo SQLite é artefato de runtime e não é commitado (entra no
   atual de uma conversa (seria preciso reprocessar todo o log a cada
   request) e não dá suporte natural a status ponto-a-ponto por entidade.
 - **Banco externo (Postgres/Redis)**: rejeitada por desproporcional ao
-  escopo de um projeto de 3 dias rodado localmente via `docker-compose`
+  escopo de uma primeira versão rodada localmente via `docker-compose`
   (RNF4 da spec).
 - **Estado só em memória do processo**: rejeitada. Perde-se tudo se o
   processo reiniciar, e não atende ao requisito de rastreabilidade

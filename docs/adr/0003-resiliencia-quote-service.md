@@ -33,7 +33,7 @@ preço quando a chamada falha.
   travar.
 - **Cache da última cotação bem-sucedida como fallback aproximado**:
   rejeitada. Um preço de outro perfil ou desatualizado é, na prática,
-  inventar um valor — exatamente o que o projeto pede para evitar.
+  inventar um valor — exatamente o que o agente precisa evitar.
 - **Fila assíncrona com callback ao lead quando o serviço voltar**:
   rejeitada por complexidade desproporcional ao escopo (RNF4 da spec); o
   webhook responde de forma síncrona nesta versão.

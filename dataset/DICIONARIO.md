@@ -3,7 +3,7 @@
 > ⚠️ **Dados 100% sintéticos.** Conversas, nomes, CPF, e-mails, telefones, placas e CEPs
 > foram **gerados proceduralmente** (`scripts/generate_dataset.py`). Os formatos são
 > plausíveis, mas **nenhum dado é de pessoa real**. Ainda assim, trate-os como se fossem
-> sensíveis — é parte do projeto.
+> sensíveis.
 
 Cada **linha = uma mensagem**. Conversas se reconstroem agrupando por `conversation_id`
 e ordenando por `message_index`.

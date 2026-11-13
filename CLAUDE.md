@@ -5,11 +5,9 @@ Projeto spec-driven. A fonte da verdade é `docs/specs/spec-vX.Y.Z.md` mais as A
 Antes de implementar qualquer fase, leia a spec da versão e as ADRs relevantes. Elas não são carregadas automaticamente, só este CLAUDE.md é. Cada ADR trava uma decisão de arquitetura; respeite-a e, se precisar mudar, escreva uma nova ADR registrando o porquê.
 
 ## Contexto do projeto
-Este repositório é a submissão para o projeto técnico de  (). O material original do projeto está preservado em `docs/projeto/README_ORIGINAL.md`; `quote-service/`, `dataset/`, `scripts/` e o `docker-compose.yml` base vieram de lá sem alteração de lógica.
+Agente de atendimento e cotação de seguro auto. `quote-service/` é um mock do serviço de cotação, `dataset/` e `scripts/` trazem conversas sintéticas entre lead e vendedor, e o `docker-compose.yml` sobe os dois serviços.
 
 Fluxo de trabalho deste repositório: uma sessão orquestradora escreve specs e ADRs em `docs/`, sem tocar em código de implementação; uma sessão de desenvolvimento separada lê essas specs/ADRs e implementa. As duas sessões commitam e pusham no mesmo repositório, cada uma na sua etapa.
-
-Ao final, `ai-logs/` recebe as sessões de IA usadas para construir isto (ver exigência de transparência de uso de IA na spec/README).
 
 ## Código
 - Simplicidade proporcional ao problema. Aplique KISS e YAGNI. Não adicione camadas de abstração, padrões de projeto, generalizações ou configurações que a spec da fase não pede. Resolva o problema atual, nunca o hipotético.
@@ -19,7 +17,7 @@ Ao final, `ai-logs/` recebe as sessões de IA usadas para construir isto (ver ex
 - Nunca use travessão em nada gerado.
 
 ## Dados sensíveis
-`dataset/conversations.parquet` tem CPF, e-mail, telefone e placa embutidos em texto livre (sintéticos, mas tratados como sensíveis por exigência do projeto). Nenhum desses dados em texto puro pode chegar a logs, exemplos ou artefatos commitados neste repositório público.
+`dataset/conversations.parquet` tem CPF, e-mail, telefone e placa embutidos em texto livre (sintéticos, mas tratados como sensíveis por decisão do projeto). Nenhum desses dados em texto puro pode chegar a logs, exemplos ou artefatos commitados neste repositório público.
 
 ## Commits
 - Curtos, no padrão Conventional Commits: `tipo(escopo): descrição`.

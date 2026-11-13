@@ -4,7 +4,7 @@ Status: proposta, aguardando revisão.
 
 ## Contexto
 
-Projeto técnico de  (ver `docs/projeto/README_ORIGINAL.md`). O
+Agente de atendimento e cotação de seguro auto. O
 agente atende um lead via canal que simula WhatsApp, qualifica os dados
 necessários para cotar um seguro de veículo, chama o `quote-service` (que
 simula um sistema legado instável) e decide, de forma determinística, entre
@@ -83,7 +83,7 @@ de virar código.
 - **RF11** — Existe um endpoint de consulta (ex.: `GET
   /conversations/{conversation_id}`) que expõe o estado e o histórico de
   eventos de uma conversa, para inspeção e para produzir o "log de uma
-  execução completa" exigido pelo projeto.
+  execução completa" do projeto.
 
 ## Requisitos não funcionais
 
@@ -98,8 +98,8 @@ de virar código.
   contra a API REST compatível com OpenAI da OpenRouter
   ([[0007-provedor-llm-openrouter]]); persistência via `sqlite3` da stdlib.
 - **RNF4** — Persistência local em arquivo, sem exigir infraestrutura
-  externa (sem Redis/Postgres) — proporcional ao escopo de um projeto de 3
-  dias rodado localmente via `docker-compose`.
+  externa (sem Redis/Postgres) — proporcional ao escopo de uma primeira
+  versão rodada localmente via `docker-compose`.
 - **RNF5** — Nenhum artefato gerado pela aplicação (logs, respostas
   persistidas, banco local) contém PII em texto puro.
 - **RNF6** — Código Python idiomático, FastAPI, sem comentários
@@ -117,4 +117,4 @@ de virar código.
 - Toda mensagem e toda tentativa de cotação de uma conversa de demonstração
   são rastreáveis (id + status) via `GET /conversations/{id}`.
 - Nenhum CPF, e-mail, telefone ou placa em texto puro aparece em qualquer
-  artefato do repositório (código, dados persistidos, exemplos, `ai-logs/`).
+  artefato do repositório (código, dados persistidos, exemplos).
